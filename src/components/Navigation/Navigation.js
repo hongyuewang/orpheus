@@ -22,7 +22,7 @@ function Navigation(props) {
           {props.token && (
             <NavDropdown title={props.currentUserData.display_name}>
               <NavDropdown.Item>
-                <Link to="profile">Profile</Link>
+                <Link to="profile" className="link">Profile</Link>
               </NavDropdown.Item>
               <NavDropdown.Item onClick={props.signout}>
                 Sign Out

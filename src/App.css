@@ -15,8 +15,14 @@
   font-size: 5em;
 }
 
+.link {
+  text-decoration: none;
+  color: #299BFF;
+}
 
-
+.link:hover {
+  color: #212121;
+}
 
 
 

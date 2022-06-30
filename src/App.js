@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navigation/Navigation";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Container, Row } from "react-bootstrap";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Container, Row, Button } from "react-bootstrap";
 import axios from "axios";
 
 function App() {
@@ -81,24 +81,35 @@ function App() {
 const Home = (props) => {
   return (
     <Container>
-      <Row className="container home-title">
+      <Row className="container home-title d-flex align-items-center justify-content-center">
         <Row>
-          <h1 className="text-blue logo">Orpheus</h1>
+          <h1 className="text-blue logo mt-5 mb-2">Orpheus</h1>
         </Row>
         <Row>
-          <p className="lead">Learn about the music you love.</p>
+          <p className="lead mb-5">Learn about the music you love.</p>
         </Row>
       </Row>
 
       <div>
         {!props.token ? (
-          <a
+          <Button
+            variant="outline-blue"
+            className="home-button"
+            style={{ margin: "0 auto", display: "block" }}
             href={`${props.AUTH_ENDPOINT}?client_id=${props.CLIENT_ID}&redirect_uri=${props.REDIRECT_URI}&response_type=${props.RESPONSE_TYPE}`}
           >
             Sign In With Spotify
-          </a>
+          </Button>
         ) : (
-          <button onClick={props.signout}>Sign Out</button>
+          <Button
+            variant="outline-blue"
+            className="home-button"
+            style={{ margin: "0 auto", display: "block" }}
+          >
+            <Link to="profile" className="link">
+              View Your Profile
+            </Link>
+          </Button>
         )}
       </div>
     </Container>
