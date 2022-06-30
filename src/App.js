@@ -82,12 +82,12 @@ function App() {
           }
         />
         <Route path="/discover" element={<Discover token={token} />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/profile" element={<Profile token={token} />} />
+        <Route path="/search" element={<Search token={token}/>} />
 
-        <Route path="/artists/:id" element={<ArtistProfile />} />
-        <Route path="/albums/:id" element={<AlbumProfile />} />
-        <Route path="/songs/:id" element={<SongProfile />} />
+        <Route path="/artists/:id" element={<ArtistProfile token={token}/>} />
+        <Route path="/albums/:id" element={<AlbumProfile token={token}/>} />
+        <Route path="/songs/:id" element={<SongProfile token={token}/>} />
       </Routes>
     </Router>
   );
