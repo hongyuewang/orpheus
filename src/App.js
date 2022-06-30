@@ -5,15 +5,23 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Container, Row, Button } from "react-bootstrap";
 import axios from "axios";
 
+import Discover from "./pages/Discover";
+import Profile from "./pages/Profile";
+import Search from "./pages/Search";
+import ArtistProfile from "./components/Profiles/ArtistProfile";
+import AlbumProfile from "./components/Profiles/AlbumProfile";
+import SongProfile from "./components/Profiles/SongProfile";
+
 function App() {
   const CLIENT_ID = "2b8587e1136c463bbacecc73035758af";
   const REDIRECT_URI = "http://localhost:3000";
+  // const REDIRECT_URI = "https://orpheus-music.web.app/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
   const [token, setToken] = useState("");
-  const [searchKey, setSearchKey] = useState("");
-  const [artists, setArtists] = useState([]);
+  //const [searchKey, setSearchKey] = useState("");
+  //const [artists, setArtists] = useState([]);
   const [currentUserData, setCurrentUserData] = useState([]);
 
   useEffect(() => {
@@ -73,6 +81,13 @@ function App() {
             />
           }
         />
+        <Route path="/discover" element={<Discover token={token} />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/search" element={<Search />} />
+
+        <Route path="/artists/:id" element={<ArtistProfile />} />
+        <Route path="/albums/:id" element={<AlbumProfile />} />
+        <Route path="/songs/:id" element={<SongProfile />} />
       </Routes>
     </Router>
   );
@@ -92,24 +107,26 @@ const Home = (props) => {
 
       <div>
         {!props.token ? (
-          <Button
-            variant="outline-blue"
-            className="home-button"
-            style={{ margin: "0 auto", display: "block" }}
+          <a
             href={`${props.AUTH_ENDPOINT}?client_id=${props.CLIENT_ID}&redirect_uri=${props.REDIRECT_URI}&response_type=${props.RESPONSE_TYPE}`}
+            style={{ textDecoration: "none" }}
           >
-            Sign In With Spotify
-          </Button>
+            <button
+              className="home-button btn btn-outline-blue"
+              style={{ margin: "0 auto", display: "block" }}
+            >
+              Sign In With Spotify
+            </button>
+          </a>
         ) : (
-          <Button
-            variant="outline-blue"
-            className="home-button"
+          <button
+            className="home-button btn btn-outline-blue"
             style={{ margin: "0 auto", display: "block" }}
           >
             <Link to="profile" className="link">
               View Your Profile
             </Link>
-          </Button>
+          </button>
         )}
       </div>
     </Container>

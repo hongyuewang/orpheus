@@ -15,7 +15,6 @@ code {
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 body > #root > div {
-  height: 100vh;
   color: white;
   font-family: 'Open Sans', sans-serif;
 }
