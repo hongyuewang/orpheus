@@ -3,36 +3,32 @@ import { NavLink, Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
-function Navigation() {
+function Navigation(props) {
   return (
-    /*
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="search">Search</Link>
-                </li>
-                <li>
-                    <Link to="discover">Discover</Link>
-                </li>
-            </ul>
-        </nav>*/
-
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark-1" variant="dark-1" expand="lg">
       <Container>
         <Link to="/" className="navbar-brand">
-          <span className="text-primary">Orpheus</span>
+          <span className="text-blue logo">Orpheus</span>
         </Link>
         <Nav className="navbar-nav fs-5">
-          <NavLink to="search" className="nav-link">
+          <NavLink to="search" className="nav-link text-white">
             Search
           </NavLink>
-          <NavLink to="discover" className="nav-link">
+          <NavLink to="discover" className="nav-link text-white">
             Discover
           </NavLink>
+          {props.token && (
+            <NavDropdown title={props.currentUserData.display_name}>
+              <NavDropdown.Item>
+                <Link to="profile">Profile</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={props.signout}>
+                Sign Out
+              </NavDropdown.Item>
+            </NavDropdown>
+          )}
         </Nav>
       </Container>
     </Navbar>
