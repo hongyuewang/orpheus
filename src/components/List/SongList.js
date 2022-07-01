@@ -28,24 +28,24 @@ export default function SongList(props) {
             length="40px"
           />
         </div>
-        <div className="p-3" style={{ display: "inline" }}>
+        <div className="p-3" style={{ display: "inline", width: "150px", textAlign: "center"}}>
           {name}
         </div>
-        <div className="p-3" style={{ display: "inline" }}>
+        <div className="p-3" style={{ display: "inline", width: "150px", textAlign: "left"}}>
           {artists[0].name}
         </div>
-        <div className="p-3" style={{ display: "inline" }}>
+        <div className="p-3" style={{ display: "inline", width: "150px", textAlign: "left" }}>
           {album.name}
         </div>
       </div>
     );
   });
   return <Container>
-    <div className="d-flex flex-md-row flex-row  justify-content-between gap-3">
-        <div></div>
-        <div>Title</div>
-        <div>Artist</div>
-        <div>Album</div>   
-    </div>
+    {props.songs.length > 0 && (<div className="d-flex flex-md-row flex-row  justify-content-between gap-3">
+        <div style={{width: "40px", textAlign: "center"}}></div>
+        <div style={{width: "150px", fontWeight: "bold", textAlign: "center"}}>Title</div>
+        <div style={{width: "150px", fontWeight: "bold", textAlign: "center"}}>Artist</div>
+        <div style={{width: "150px", fontWeight: "bold", textAlign: "center"}}>Album</div>   
+    </div>)}
     {display}</Container>;
 }

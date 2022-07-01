@@ -15,13 +15,11 @@ import SongProfile from "./components/Profiles/SongProfile";
 function App() {
   const CLIENT_ID = "2b8587e1136c463bbacecc73035758af";
   const REDIRECT_URI = "http://localhost:3000";
-  // const REDIRECT_URI = "https://orpheus-music.web.app/";
+  //const REDIRECT_URI = "https://orpheus-music.web.app/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
   const [token, setToken] = useState("");
-  //const [searchKey, setSearchKey] = useState("");
-  //const [artists, setArtists] = useState([]);
   const [currentUserData, setCurrentUserData] = useState([]);
 
   useEffect(() => {
@@ -83,11 +81,11 @@ function App() {
         />
         <Route path="/discover" element={<Discover token={token} />} />
         <Route path="/profile" element={<Profile token={token} />} />
-        <Route path="/search" element={<Search token={token}/>} />
+        <Route path="/search" element={<Search token={token} />} />
 
-        <Route path="/artists/:id" element={<ArtistProfile token={token}/>} />
-        <Route path="/albums/:id" element={<AlbumProfile token={token}/>} />
-        <Route path="/songs/:id" element={<SongProfile token={token}/>} />
+        <Route path="/artists/:id" element={<ArtistProfile token={token} />} />
+        <Route path="/albums/:id" element={<AlbumProfile token={token} />} />
+        <Route path="/songs/:id" element={<SongProfile token={token} />} />
       </Routes>
     </Router>
   );

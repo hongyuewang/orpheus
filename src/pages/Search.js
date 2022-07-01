@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import AlbumList from "../components/List/AlbumList";
 import SongList from "../components/List/SongList";
+import ArtistList from "../components/List/ArtistList";
 
 export default function Search(props) {
   const [searchKey, setSearchKey] = useState("");
@@ -53,6 +54,11 @@ export default function Search(props) {
       {albums.length > 0 && (<Row><h3 className="fw-bold">Albums</h3></Row>)}
       <Row>
         <AlbumList albums={albums}/>
+      </Row>
+
+      {artists.length > 0 && (<Row><h3 className="fw-bold">Artists</h3></Row>)}
+      <Row>
+        <ArtistList artists={artists}></ArtistList>
       </Row>
     </Container>
   );
