@@ -13,16 +13,18 @@ function Navigation(props) {
           <span className="text-blue logo">Orpheus</span>
         </Link>
         <Nav className="navbar-nav fs-5">
-          <NavLink to="search" className="nav-link text-white">
+          <NavLink to="/search" className="nav-link text-white">
             Search
           </NavLink>
-          <NavLink to="discover" className="nav-link text-white">
+          <NavLink to="/discover" className="nav-link text-white">
             Discover
           </NavLink>
           {props.token && (
-            <NavDropdown title={props.currentUserData.display_name}>
+            <NavDropdown title={props.currentUserData.display_name} className="text-blue">
               <NavDropdown.Item>
-                <Link to="profile" className="link">Profile</Link>
+                <Link to="/profile" className="link">
+                  Profile
+                </Link>
               </NavDropdown.Item>
               <NavDropdown.Item onClick={props.signout}>
                 Sign Out

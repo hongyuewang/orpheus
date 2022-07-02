@@ -1,7 +1,6 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
 import { Container, Row } from "react-bootstrap";
-import AlbumList from "./AlbumList";
+import { Link } from "react-router-dom";
 
 export default function SongList(props) {
   let display = props.songs.map((x) => {
@@ -28,24 +27,67 @@ export default function SongList(props) {
             length="40px"
           />
         </div>
-        <div className="p-3" style={{ display: "inline", width: "150px", textAlign: "center"}}>
-          {name}
-        </div>
-        <div className="p-3" style={{ display: "inline", width: "150px", textAlign: "left"}}>
-          {artists[0].name}
-        </div>
-        <div className="p-3" style={{ display: "inline", width: "150px", textAlign: "left" }}>
-          {album.name}
-        </div>
+        <Link
+          to={`/songs/${id}`}
+          style={{ textDecoration: "none", color: "white" }}
+          key={id}
+        >
+          <div
+            className="p-3"
+            style={{ display: "inline", width: "150px", textAlign: "center" }}
+          >
+            {name}
+          </div>
+        </Link>
+        <Link
+          to={`/artists/${artists[0].id}`}
+          style={{ textDecoration: "none", color: "white" }}
+        >
+          <div
+            className="p-3"
+            style={{ display: "inline", width: "150px", textAlign: "left" }}
+          >
+            {artists[0].name}
+          </div>
+        </Link>
+
+        <Link
+          to={`/albums/${album.id}`}
+          style={{ textDecoration: "none", color: "white" }}
+        >
+          <div
+            className="p-3"
+            style={{ display: "inline", width: "150px", textAlign: "left" }}
+          >
+            {album.name}
+          </div>
+        </Link>
       </div>
     );
   });
-  return <Container>
-    {props.songs.length > 0 && (<div className="d-flex flex-md-row flex-row  justify-content-between gap-3">
-        <div style={{width: "40px", textAlign: "center"}}></div>
-        <div style={{width: "150px", fontWeight: "bold", textAlign: "center"}}>Title</div>
-        <div style={{width: "150px", fontWeight: "bold", textAlign: "center"}}>Artist</div>
-        <div style={{width: "150px", fontWeight: "bold", textAlign: "center"}}>Album</div>   
-    </div>)}
-    {display}</Container>;
+  return (
+    <Container>
+      {props.songs.length > 0 && (
+        <div className="d-flex flex-md-row flex-row  justify-content-between gap-3 mb-3">
+          <div style={{ width: "40px", textAlign: "center" }}></div>
+          <div
+            style={{ width: "150px", fontWeight: "bold", textAlign: "center" }}
+          >
+            Title
+          </div>
+          <div
+            style={{ width: "150px", fontWeight: "bold", textAlign: "center" }}
+          >
+            Artist
+          </div>
+          <div
+            style={{ width: "150px", fontWeight: "bold", textAlign: "center" }}
+          >
+            Album
+          </div>
+        </div>
+      )}
+      {display}
+    </Container>
+  );
 }

@@ -13,7 +13,7 @@ export default function ArtistList(props) {
         className="bg-dark-3 pt-2 ps-2 pe-2 mt-4 mb-4 ms-4 me-4"
       >
         <Link
-          to={`artists/${id}`}
+          to={`/artists/${id}`}
           style={{ textDecoration: "none", color: "white" }}
         >
           <Card.Img

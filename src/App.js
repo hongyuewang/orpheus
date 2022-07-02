@@ -53,6 +53,7 @@ function App() {
   const signout = () => {
     setToken("");
     window.localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   return (
@@ -80,7 +81,12 @@ function App() {
           }
         />
         <Route path="/discover" element={<Discover token={token} />} />
-        <Route path="/profile" element={<UserProfile token={token} currentUserData={currentUserData} />} />
+        <Route
+          path="/profile"
+          element={
+            <UserProfile token={token} currentUserData={currentUserData} />
+          }
+        />
         <Route path="/search" element={<Search token={token} />} />
 
         <Route path="/artists/:id" element={<ArtistProfile token={token} />} />
@@ -121,7 +127,7 @@ const Home = (props) => {
             className="home-button btn btn-outline-blue"
             style={{ margin: "0 auto", display: "block" }}
           >
-            <Link to="profile" className="link">
+            <Link to="/profile" className="link">
               View Your Profile
             </Link>
           </button>

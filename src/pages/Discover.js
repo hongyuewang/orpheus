@@ -30,7 +30,7 @@ export default function Discover(props) {
       <Row>
         <h1 className="text-center mt-3 fw-bold">Discover</h1>
       </Row>
-      <AlbumList albums={newReleases}/>
+      <AlbumList albums={newReleases} />
     </Container>
   );
 }
