@@ -6,7 +6,7 @@ import { Container, Row, Button } from "react-bootstrap";
 import axios from "axios";
 
 import Discover from "./pages/Discover";
-import Profile from "./pages/Profile";
+import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import ArtistProfile from "./components/Profiles/ArtistProfile";
 import AlbumProfile from "./components/Profiles/AlbumProfile";
@@ -80,7 +80,7 @@ function App() {
           }
         />
         <Route path="/discover" element={<Discover token={token} />} />
-        <Route path="/profile" element={<Profile token={token} />} />
+        <Route path="/profile" element={<UserProfile token={token} currentUserData={currentUserData} />} />
         <Route path="/search" element={<Search token={token} />} />
 
         <Route path="/artists/:id" element={<ArtistProfile token={token} />} />

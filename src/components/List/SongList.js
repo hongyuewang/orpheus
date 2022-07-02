@@ -21,7 +21,7 @@ export default function SongList(props) {
       <div className="d-flex flex-md-row flex-row  justify-content-between gap-3">
         <div className="p-3" style={{ display: "inline" }}>
           <img
-            src={album.images[0].url}
+            src={album.images[0]?.url || "no-photo.jpg"}
             alt="Album cover"
             className="h-14 w-14 rounded-sm border border-neutral-800"
             width="40px"
