@@ -8,7 +8,6 @@ export default function SongProfile(props) {
   let { id } = useParams();
   let [songData, setSongData] = useState([]);
   let {
-    //id,
     name,
     artists,
     album,
@@ -63,7 +62,6 @@ export default function SongProfile(props) {
             <Col><p className="fw-bold">Release Date</p><p>{album?.release_date}</p></Col>
             <Col><p className="fw-bold">Popularity</p><p>{popularity}%</p></Col>
         </Row>
-
       </Container>
     </Container>
   );

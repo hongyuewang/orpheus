@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function AlbumList(props) {
   let display = props.albums.map((x) => {
-    let { id, name, artists, images, type, albumType, href, total_tracks } = x;
+    let { id, name, artists, images, type, album_type, href, total_tracks } = x;
     return (
       <Card
         style={{ width: "10rem", height: "15rem" }}
