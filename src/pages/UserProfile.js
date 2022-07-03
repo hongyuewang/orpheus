@@ -20,7 +20,7 @@ export default function UserProfile(props) {
           <h1 className="fw-bold" style={{ fontFamily: "Montserrat" }}>
             {display_name}
           </h1>
-          <p className="lead ffs-6">{followers.total} followers on Spotify</p>
+          <p className="lead ffs-6">{followers.total.toLocaleString()} followers on Spotify</p>
         </Col>
       </Row>
       <Row className="mt-5">

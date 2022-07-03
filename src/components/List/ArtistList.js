@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function ArtistList(props) {
   let display = props.artists.map((x) => {
-    let { id, name, genre, images, popularity, type, href } = x;
+    let { id, name, genres, images, popularity, type, href } = x;
 
     return (
       <Card
