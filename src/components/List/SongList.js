@@ -17,8 +17,11 @@ export default function SongList(props) {
       href,
     } = x;
     return (
-      <div className="d-flex flex-md-row flex-row  justify-content-between gap-3">
-        <div className="p-3" style={{ display: "inline" }}>
+      <div className="d-inline-block row justify-content-between gap-3 mb-5">
+        <div
+          className="me-5"
+          style={{ display: "inline-block", width: "40px" }}
+        >
           <img
             src={album.images[0]?.url || "no-photo.jpg"}
             alt="Album cover"
@@ -33,8 +36,16 @@ export default function SongList(props) {
           key={id}
         >
           <div
-            className="p-3"
-            style={{ display: "inline", width: "150px", textAlign: "center" }}
+            className="me-5"
+            style={{
+              display: "inline-block",
+              width: "250px",
+              minWidth: "0",
+              textAlign: "left",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
           >
             {name}
           </div>
@@ -44,8 +55,15 @@ export default function SongList(props) {
           style={{ textDecoration: "none", color: "white" }}
         >
           <div
-            className="p-3"
-            style={{ display: "inline", width: "150px", textAlign: "left" }}
+            className="me-5"
+            style={{
+              display: "inline-block",
+              width: "250px",
+              textAlign: "left",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
           >
             {artists[0].name}
           </div>
@@ -56,37 +74,88 @@ export default function SongList(props) {
           style={{ textDecoration: "none", color: "white" }}
         >
           <div
-            className="p-3"
-            style={{ display: "inline", width: "150px", textAlign: "left" }}
+            className="me-5"
+            style={{
+              display: "inline-block",
+              width: "250px",
+              textAlign: "left",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
           >
             {album.name}
           </div>
         </Link>
+        <div
+          className="me-5"
+          style={{ display: "inline-block", width: "20px", textAlign: "left" }}
+        >
+          <img
+            src="https://developer.spotify.com/assets/branding-guidelines/heart-64.svg"
+            alt=""
+            style={{ display: "inline", width: "20px", textAlign: "center" }}
+          />
+        </div>
       </div>
     );
   });
   return (
     <Container>
       {props.songs.length > 0 && (
-        <div className="d-flex flex-md-row flex-row  justify-content-between gap-3 mb-3">
-          <div style={{ width: "40px", textAlign: "center" }}></div>
+        <div className="d-inline-block row justify-content-between gap-3 mb-3">
           <div
-            style={{ width: "150px", fontWeight: "bold", textAlign: "center" }}
+            className="me-5"
+            style={{
+              display: "inline-block",
+              width: "40px",
+              textAlign: "left",
+            }}
+          ></div>
+          <div
+            className="me-5"
+            style={{
+              display: "inline-block",
+              width: "250px",
+              fontWeight: "bold",
+              textAlign: "left",
+            }}
           >
             Title
           </div>
           <div
-            style={{ width: "150px", fontWeight: "bold", textAlign: "center" }}
+            className="me-5"
+            style={{
+              display: "inline-block",
+              width: "250px",
+              fontWeight: "bold",
+              textAlign: "left",
+            }}
           >
             Artist
           </div>
           <div
-            style={{ width: "150px", fontWeight: "bold", textAlign: "center" }}
+            className="me-5"
+            style={{
+              display: "inline-block",
+              width: "250px",
+              fontWeight: "bold",
+              textAlign: "left",
+            }}
           >
             Album
           </div>
+          <div
+            className="me-5"
+            style={{
+              display: "inline-block",
+              width: "20px",
+              textAlign: "center",
+            }}
+          ></div>
         </div>
       )}
+      <br></br>
       {display}
     </Container>
   );

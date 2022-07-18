@@ -48,6 +48,11 @@ function App() {
       setCurrentUserData(data);
     };
     getCurrentUserData();
+
+    if (!localStorage.getItem(currentUserData.id)) {
+      localStorage.setItem("");
+    }
+    console.log(localStorage.getItem(currentUserData.id));
   }, []);
 
   const signout = () => {
@@ -89,9 +94,9 @@ function App() {
         />
         <Route path="/search" element={<Search token={token} />} />
 
-        <Route path="/artists/:id" element={<ArtistProfile token={token} />} />
-        <Route path="/albums/:id" element={<AlbumProfile token={token} />} />
-        <Route path="/songs/:id" element={<SongProfile token={token} />} />
+        <Route path="/artists/:id" element={<ArtistProfile token={token} currentUserData={currentUserData}/>} />
+        <Route path="/albums/:id" element={<AlbumProfile token={token} currentUserData={currentUserData} />} />
+        <Route path="/songs/:id" element={<SongProfile token={token} currentUserData={currentUserData}/>} />
       </Routes>
     </Router>
   );
