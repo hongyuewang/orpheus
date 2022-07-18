@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import ArtistList from "../List/ArtistList";
 
 export default function ArtistProfile(props) {
   let { id } = useParams();
   let [artistData, setArtistData] = useState([]);
+  let [recommendations, setRecommendations] = useState([]);
   let { name, genres, images, popularity, followers, type, href } = artistData;
 
   useEffect(() => {
@@ -22,7 +24,21 @@ export default function ArtistProfile(props) {
       setArtistData(data);
     };
 
+    const getRecommendations = async () => {
+      const { data } = await axios.get(
+        `https://api.spotify.com/v1/artists/${id}/related-artists`,
+        {
+          headers: {
+            Authorization: `Bearer ${props.token}`,
+          },
+        }
+      );
+      console.log(data);
+      setRecommendations(data.artists);
+    };
+
     getArtist();
+    getRecommendations();
   });
 
   return (
@@ -46,7 +62,7 @@ export default function ArtistProfile(props) {
         </Col>
       </Row>
       <Container className="mt-5">
-        <Row>
+        <Row className="mb-5">
           <Col>
             <p className="fw-bold">Genres</p>
             {genres?.map((txt, index) => (
@@ -61,6 +77,16 @@ export default function ArtistProfile(props) {
             <p>{popularity}%</p>
           </Col>
         </Row>
+
+        {recommendations.length > 0 && (
+        <Row>
+          <h3 className="fw-bold">You May Also Like</h3>
+        </Row>
+      )}
+        <Row> 
+        <ArtistList artists={recommendations}></ArtistList>
+      </Row>
+
       </Container>
     </Container>
   );
