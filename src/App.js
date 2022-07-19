@@ -4,6 +4,8 @@ import Navbar from "./components/Navigation/Navigation";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Container, Row, Button } from "react-bootstrap";
 import axios from "axios";
+import qs from "qs";
+import { Buffer } from "buffer";
 
 import Discover from "./pages/Discover";
 import UserProfile from "./pages/UserProfile";
@@ -14,30 +16,62 @@ import SongProfile from "./components/Profiles/SongProfile";
 
 function App() {
   const CLIENT_ID = "2b8587e1136c463bbacecc73035758af";
+  const CLIENT_SECRET = "af3a7aaddda7469896966bf3f21414ab";
   const REDIRECT_URI = "http://localhost:3000";
   //const REDIRECT_URI = "https://orpheus-music.web.app/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONSE_TYPE = "token";
+  const RESPONSE_TYPE = "code";
 
   const [token, setToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
+  const [expiresIn, setExpiresIn] = useState(-1);
   const [currentUserData, setCurrentUserData] = useState([]);
 
   useEffect(() => {
     const hash = window.location.hash;
+    const search = window.location.search;
     let token = window.localStorage.getItem("token");
+    let refreshToken = window.localStorage.getItem("refreshToken");
+    let code = window.localStorage.getItem("code");
 
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
+    if (!code && search) {
+      code = search.substring(1).split("=")[1];
 
       window.location.hash = "";
-      window.localStorage.setItem("token", token);
+      window.localStorage.setItem("code", code);
+      console.log(code);
     }
 
-    setToken(token);
+    const getAccessToken = async () => {
+      const { data } = await axios.post(
+        "https://accounts.spotify.com/api/token",
+        qs.stringify({
+          code: code,
+          redirect_uri: REDIRECT_URI,
+          grant_type: "authorization_code",
+        }),
+        {
+          headers: {
+            Authorization: `Basic ${Buffer.from(
+              `${CLIENT_ID}:${CLIENT_SECRET}`
+            ).toString("base64")}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      window.localStorage.setItem("token", data.access_token);
+      window.localStorage.setItem("refreshToken", data.refresh_token);
+      window.localStorage.setItem("expiresIn", data.expires_in);
+    };
+
+    if (!token || !refreshToken) {
+      getAccessToken();
+    }
+
+    setToken(window.localStorage.getItem("token"));
+    setRefreshToken(window.localStorage.getItem("refreshToken"));
+    setExpiresIn(Number(window.localStorage.getItem("expiresIn")));
 
     const getCurrentUserData = async () => {
       const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -48,7 +82,42 @@ function App() {
       setCurrentUserData(data);
     };
     getCurrentUserData();
-  }, []);
+  }, [token, refreshToken]);
+
+  useEffect(() => {
+    if (!refreshToken || !expiresIn) {
+      return;
+    }
+
+    const interval = setInterval(async () => {
+      const { data } = await axios.post(
+        "https://accounts.spotify.com/api/token",
+        qs.stringify({
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+        }),
+        {
+          headers: {
+            Authorization: `Basic ${Buffer.from(
+              `${CLIENT_ID}:${CLIENT_SECRET}`
+            ).toString("base64")}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      window.localStorage.setItem("token", data.access_token);
+      window.localStorage.setItem(refreshToken, data.refresh_token);
+      window.localStorage.setItem("expiresIn", data.expires_in);
+      
+      setToken(window.localStorage.getItem("token"));
+      setRefreshToken(window.localStorage.getItem("refreshToken"));
+      setExpiresIn(Number(window.localStorage.getItem("expiresIn")));
+
+    }, expiresIn * 1000);
+
+    return () => clearInterval(interval)
+  }, [refreshToken, expiresIn]);
 
   if (
     !localStorage.getItem(currentUserData.id) &&
@@ -59,7 +128,11 @@ function App() {
 
   const signout = () => {
     setToken("");
+    setRefreshToken("");
+    setExpiresIn(-1);
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("refreshToken");
+    window.localStorage.removeItem("expiresIn");
     window.location.href = "/";
   };
 
