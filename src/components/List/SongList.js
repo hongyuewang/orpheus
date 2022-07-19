@@ -1,6 +1,12 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+
+library.add(fas, far);
 
 export default function SongList(props) {
   let display = props.songs.map((x) => {
@@ -91,11 +97,7 @@ export default function SongList(props) {
           className="me-5"
           style={{ display: "inline-block", width: "20px", textAlign: "left" }}
         >
-          <img
-            src="https://developer.spotify.com/assets/branding-guidelines/heart-64.svg"
-            alt=""
-            style={{ display: "inline", width: "20px", textAlign: "center" }}
-          />
+         
         </div>
       </div>
     );
