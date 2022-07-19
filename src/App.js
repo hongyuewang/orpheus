@@ -20,24 +20,32 @@ function App() {
   const RESPONSE_TYPE = "token";
 
   const [token, setToken] = useState("");
+  const [expiresIn, setExpiresIn] = useState(-1);
   const [currentUserData, setCurrentUserData] = useState([]);
 
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
+    let expiresIn = window.localStorage.getItem("expiresIn");
 
-    if (!token && hash) {
+    console.log(window.location);
+;
+    if (!token && !expiresIn && hash) {
       token = hash
         .substring(1)
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
         .split("=")[1];
+      expiresIn = Number(hash.substring(1).split("&").find((elem) => elem.startsWith("expires_in")).split("=")[1]);
 
       window.location.hash = "";
+      window.location.href = window.location.href.split("#")[0];
       window.localStorage.setItem("token", token);
+      window.localStorage.setItem("expiresIn", expiresIn);
     }
 
     setToken(token);
+    setExpiresIn(expiresIn);
 
     const getCurrentUserData = async () => {
       const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -50,6 +58,22 @@ function App() {
     getCurrentUserData();
   }, []);
 
+  useEffect(() => {
+    if (token && expiresIn) {
+      const interval = setInterval(() => {
+        setExpiresIn(expiresIn - 1);
+      }, 1000);
+      
+      if (expiresIn <= 0) {
+        signout();
+      }
+
+      return () => clearInterval(interval);
+    } else {
+      return;
+    }
+  }, [token, expiresIn]);
+
   if (
     !localStorage.getItem(currentUserData.id) &&
     currentUserData.id != undefined
@@ -60,6 +84,7 @@ function App() {
   const signout = () => {
     setToken("");
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("expiresIn");
     window.location.href = "/";
   };
 
