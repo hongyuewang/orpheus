@@ -1,23 +1,27 @@
 import React from "react";
-import { Container, Row, Col} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import SongList from "../components/List/SongList";
 import { storageStringToArray } from "../Helper";
 import { useState, useEffect } from "react";
 
 export default function UserProfile(props) {
+  const [clickCount, setClickCount] = useState(0);
 
   let { id, display_name, images, followers, type, href } =
     props.currentUserData;
 
-    console.log(props);
+  console.log(props);
 
-  const [favorites, setFavorites] = useState(storageStringToArray(localStorage.getItem(id)));
+  const [favorites, setFavorites] = useState(
+    storageStringToArray(localStorage.getItem(id))
+  );
 
   useEffect(() => {
+    console.log("hi");
     (() => {
       setFavorites(storageStringToArray(localStorage.getItem(id)));
     })();
-  }, [id]);
+  }, [id, clickCount]);
 
   return (
     <Container>
@@ -33,14 +37,22 @@ export default function UserProfile(props) {
           <h1 className="fw-bold" style={{ fontFamily: "Montserrat" }}>
             {display_name}
           </h1>
-          <p className="lead ffs-6">{followers?.total.toLocaleString()} followers on Spotify</p>
+          <p className="lead ffs-6">
+            {followers?.total.toLocaleString()} followers on Spotify
+          </p>
         </Col>
       </Row>
       <Row className="mt-5">
         <h3 className="fw-bold">Favorites</h3>
-        { favorites?.length > 0 ?         <SongList
-          songs={favorites} currentUserData={props.currentUserData}
-        /> : <p>No favorites yet</p>}
+        {favorites?.length > 0 ? (
+          <SongList
+            songs={favorites}
+            currentUserData={props.currentUserData}
+            customClickEvent={() => setClickCount(clickCount + 1)}
+          />
+        ) : (
+          <p>No favorites yet</p>
+        )}
       </Row>
     </Container>
   );

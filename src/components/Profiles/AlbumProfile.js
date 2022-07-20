@@ -13,7 +13,6 @@ export default function AlbumProfile(props) {
     let lengthInMs = 0;
     for (let i = 0; i < total_tracks; i++) {
       lengthInMs += tracks.items[i].duration_ms;
-      console.log(lengthInMs);
     }
     //console.log(lengthInMs)
     return lengthInMs >= 3600000 ?  msToHourMinutes(lengthInMs): msToMinutes(lengthInMs);

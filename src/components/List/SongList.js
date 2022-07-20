@@ -159,7 +159,7 @@ export default function SongList(props) {
         </Link>
         <div
           className="me-5"
-          style={{ display: "inline-block", width: "20px", textAlign: "left" }}
+          style={{ display: "inline-block", width: "20px", textAlign: "left" }} onClick={props.customClickEvent}
         >
           {songSearch != undefined ? (
             <FontAwesomeIcon
