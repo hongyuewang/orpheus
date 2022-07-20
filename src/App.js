@@ -28,9 +28,7 @@ function App() {
     let token = window.localStorage.getItem("token");
     let expiresIn = window.localStorage.getItem("expiresIn");
 
-    console.log(window.location);
-;
-    if (!token && !expiresIn && hash) {
+    if ((!token || token.length == 0 || !expiresIn) && hash) {
       token = hash
         .substring(1)
         .split("&")

@@ -2,11 +2,22 @@ import React from "react";
 import { Container, Row, Col} from "react-bootstrap";
 import SongList from "../components/List/SongList";
 import { storageStringToArray } from "../Helper";
+import { useState, useEffect } from "react";
 
 export default function UserProfile(props) {
-  console.log(props.currentUserData);
+
   let { id, display_name, images, followers, type, href } =
     props.currentUserData;
+
+    console.log(props);
+
+  const [favorites, setFavorites] = useState(storageStringToArray(localStorage.getItem(id)));
+
+  useEffect(() => {
+    (() => {
+      setFavorites(storageStringToArray(localStorage.getItem(id)));
+    })();
+  }, [id]);
 
   return (
     <Container>
@@ -27,9 +38,8 @@ export default function UserProfile(props) {
       </Row>
       <Row className="mt-5">
         <h3 className="fw-bold">Favorites</h3>
-        { storageStringToArray(localStorage.getItem(props.currentUserData.id))?.length > 0 ?         <SongList
-          songs={storageStringToArray(localStorage.getItem(props.currentUserData.id))}
-          currentUserData={props.currentUserData}
+        { favorites?.length > 0 ?         <SongList
+          songs={favorites} currentUserData={props.currentUserData}
         /> : <p>No favorites yet</p>}
       </Row>
     </Container>

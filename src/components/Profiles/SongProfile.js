@@ -19,6 +19,8 @@ export default function SongProfile(props) {
     href,
   } = songData;
 
+  console.log(props)
+
   useEffect(() => {
     const getSong = async () => {
       const { data } = await axios.get(
@@ -29,7 +31,7 @@ export default function SongProfile(props) {
           },
         }
       );
-      console.log(data);
+      //console.log(data);
       setSongData(data);
     };
 

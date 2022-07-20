@@ -55,6 +55,7 @@ export default function SongList(props) {
     }, [songSearch]);
 
     function addSongToFavorites(x) {
+      console.log(x);
       let favorites = storageStringToArray(
         localStorage.getItem(props.currentUserData.id)
       );
@@ -69,11 +70,15 @@ export default function SongList(props) {
       setSongSearch(search());
     }
 
-    function removeSongFromFavorites(x, num) {
+    function removeSongFromFavorites(x) {
+      console.log(x);
       let favorites = storageStringToArray(
         localStorage.getItem(props.currentUserData.id)
       );
-      favorites.splice(favorites.indexOf(x), 1);
+      favorites.splice(
+        favorites.findIndex((y) => y?.id == x?.id),
+        1
+      );
       localStorage.setItem(
         props.currentUserData.id,
         arrayToStorageString(favorites)
