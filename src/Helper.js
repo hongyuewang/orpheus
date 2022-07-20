@@ -21,3 +21,11 @@ export function msToHourMinutes(milliseconds) {
 function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
 }
+
+export function arrayToStorageString(arr) {
+    return JSON.stringify(arr);
+}
+
+export function storageStringToArray(str) {
+    return JSON.parse(str);
+}

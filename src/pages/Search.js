@@ -57,7 +57,7 @@ export default function Search(props) {
         </Row>
       )}
       <Row>
-        <SongList songs={songs} />
+        <SongList songs={songs} currentUserData={props.currentUserData} />
       </Row>
       {albums.length > 0 && (
         <Row>

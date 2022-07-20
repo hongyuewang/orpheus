@@ -61,12 +61,8 @@ function App() {
   useEffect(() => {
     if (token && expiresIn) {
       const interval = setInterval(() => {
-        setExpiresIn(expiresIn - 1);
-      }, 1000);
-      
-      if (expiresIn <= 0) {
         signout();
-      }
+      }, expiresIn * 1000);
 
       return () => clearInterval(interval);
     } else {
@@ -83,6 +79,7 @@ function App() {
 
   const signout = () => {
     setToken("");
+    setExpiresIn(-1);
     window.localStorage.removeItem("token");
     window.localStorage.removeItem("expiresIn");
     window.location.href = "/";
@@ -119,7 +116,7 @@ function App() {
             <UserProfile token={token} currentUserData={currentUserData} />
           }
         />
-        <Route path="/search" element={<Search token={token} />} />
+        <Route path="/search" element={<Search token={token} currentUserData={currentUserData} />} />
 
         <Route
           path="/artists/:id"

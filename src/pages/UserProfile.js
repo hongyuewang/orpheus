@@ -43,6 +43,7 @@ export default function UserProfile(props) {
               },
             },
           ]}
+          currentUserData={props.currentUserData}
         ></SongList>
       </Row>
     </Container>

@@ -1,10 +1,12 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import {arrayToStorageString, storageStringToArray} from "../../Helper";
+import { useEffect } from "react";
 
 library.add(fas, far);
 
@@ -22,6 +24,23 @@ export default function SongList(props) {
       popularity,
       href,
     } = x;
+
+
+    let songSearch = storageStringToArray(localStorage.getItem(props.currentUserData.id)).length > 0 ? storageStringToArray(localStorage.getItem(props.currentUserData.id))?.find(x => x?.id == id) : undefined;
+
+
+    function addSongToFavorites() {
+      let favorites = storageStringToArray(localStorage.getItem(props.currentUserData.id));
+      favorites.push(x);
+      localStorage.setItem(props.currentUserData.id, arrayToStorageString(favorites));
+    }
+
+    function removeSongFromFavorites() {
+      let favorites = storageStringToArray(localStorage.getItem(props.currentUserData.id));
+      favorites.splice(favorites.indexOf(x), 1);
+      localStorage.setItem(props.currentUserData.id, arrayToStorageString(favorites));
+    }
+
     return (
       <div className="d-inline-block row justify-content-between gap-3 mb-5">
         <div
@@ -97,7 +116,8 @@ export default function SongList(props) {
           className="me-5"
           style={{ display: "inline-block", width: "20px", textAlign: "left" }}
         >
-         
+          {songSearch != undefined ? (<FontAwesomeIcon icon="fa-solid fa-heart" onClick={removeSongFromFavorites}/>): (<FontAwesomeIcon icon="fa-regular fa-heart" onClick={addSongToFavorites}/>)
+          }
         </div>
       </div>
     );
