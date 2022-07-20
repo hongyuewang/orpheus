@@ -46,13 +46,13 @@ export default function SongList(props) {
         : undefined;
     };
 
-    const [songSearch, setSongSearch] = useState(search());
+    const [songSearch, setSongSearch] = useState();
 
     useEffect(() => {
       (() => {
         setSongSearch(search());
       })();
-    }, [search()]);
+    }, [songSearch]);
 
     function addSongToFavorites(x) {
       let favorites = storageStringToArray(
@@ -66,9 +66,10 @@ export default function SongList(props) {
         props.currentUserData.id,
         arrayToStorageString(favorites)
       );
+      setSongSearch(search());
     }
 
-    function removeSongFromFavorites(x) {
+    function removeSongFromFavorites(x, num) {
       let favorites = storageStringToArray(
         localStorage.getItem(props.currentUserData.id)
       );
@@ -77,6 +78,7 @@ export default function SongList(props) {
         props.currentUserData.id,
         arrayToStorageString(favorites)
       );
+      setSongSearch(search());
     }
 
     return (
@@ -202,102 +204,6 @@ export default function SongList(props) {
         href={href}
       />
     );
-
-    /*let songSearch = storageStringToArray(localStorage.getItem(props.currentUserData.id)).length > 0 ? storageStringToArray(localStorage.getItem(props.currentUserData.id))?.find(x => x?.id == id) : undefined;
-
-
-    function addSongToFavorites() {
-      let favorites = storageStringToArray(localStorage.getItem(props.currentUserData.id));
-      favorites.push(x);
-      localStorage.setItem(props.currentUserData.id, arrayToStorageString(favorites));
-    }
-
-    function removeSongFromFavorites() {
-      let favorites = storageStringToArray(localStorage.getItem(props.currentUserData.id));
-      favorites.splice(favorites.indexOf(x), 1);
-      localStorage.setItem(props.currentUserData.id, arrayToStorageString(favorites));
-    }
-
-    return (
-      <div className="d-inline-block row justify-content-between gap-3 mb-5">
-        <div
-          className="me-5"
-          style={{ display: "inline-block", width: "40px" }}
-        >
-          <img
-            src={album.images[0]?.url || "no-photo.jpg"}
-            alt="Album cover"
-            className="h-14 w-14 rounded-sm border border-neutral-800"
-            width="40px"
-            length="40px"
-          />
-        </div>
-        <Link
-          to={`/songs/${id}`}
-          style={{ textDecoration: "none", color: "white" }}
-          key={id}
-        >
-          <div
-            className="me-5"
-            style={{
-              display: "inline-block",
-              width: "250px",
-              minWidth: "0",
-              textAlign: "left",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {name}
-          </div>
-        </Link>
-        <Link
-          to={`/artists/${artists[0].id}`}
-          style={{ textDecoration: "none", color: "white" }}
-        >
-          <div
-            className="me-5"
-            style={{
-              display: "inline-block",
-              width: "250px",
-              textAlign: "left",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {artists[0].name}
-          </div>
-        </Link>
-
-        <Link
-          to={`/albums/${album.id}`}
-          style={{ textDecoration: "none", color: "white" }}
-        >
-          <div
-            className="me-5"
-            style={{
-              display: "inline-block",
-              width: "250px",
-              textAlign: "left",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {album.name}
-          </div>
-        </Link>
-        <div
-          className="me-5"
-          style={{ display: "inline-block", width: "20px", textAlign: "left" }}
-        >
-          {songSearch != undefined ? (<FontAwesomeIcon icon="fa-solid fa-heart" onClick={removeSongFromFavorites}/>): (<FontAwesomeIcon icon="fa-regular fa-heart" onClick={addSongToFavorites}/>)
-          }
-        </div>
-      </div>
-    );*/
   });
   return (
     <Container>
