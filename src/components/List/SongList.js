@@ -93,7 +93,7 @@ export default function SongList(props) {
           style={{ display: "inline-block", width: "40px" }}
         >
           <img
-            src={album.images[0]?.url || "no-photo.jpg"}
+            src={album?.images[0]?.url || props.albumCover || "no-photo.jpg"}
             alt="Album cover"
             className="h-14 w-14 rounded-sm border border-neutral-800"
             width="40px"
@@ -140,7 +140,7 @@ export default function SongList(props) {
         </Link>
 
         <Link
-          to={`/albums/${album.id}`}
+          to={`/albums/${album?.id}`}
           style={{ textDecoration: "none", color: "white" }}
         >
           <div
@@ -154,12 +154,13 @@ export default function SongList(props) {
               textOverflow: "ellipsis",
             }}
           >
-            {album.name}
+            {album?.name || props.albumName}
           </div>
         </Link>
         <div
           className="me-5"
-          style={{ display: "inline-block", width: "20px", textAlign: "left" }} onClick={props.customClickEvent}
+          style={{ display: "inline-block", width: "20px", textAlign: "left" }}
+          onClick={props.customClickEvent}
         >
           {songSearch != undefined ? (
             <FontAwesomeIcon
@@ -180,7 +181,7 @@ export default function SongList(props) {
       </div>
     );
   };
-  let display = props.songs.map((x) => {
+  let display = props.songs?.map((x) => {
     let {
       id,
       name,
@@ -212,7 +213,7 @@ export default function SongList(props) {
   });
   return (
     <Container>
-      {props.songs.length > 0 && (
+      {props.songs?.length > 0 && (
         <div className="d-inline-block row justify-content-between gap-3 mb-3">
           <div
             className="me-5"

@@ -52,6 +52,7 @@ function App() {
         },
       });
       setCurrentUserData(data);
+      localStorage.setItem("currentUserData", JSON.stringify(data));
     };
     getCurrentUserData();
   }, []);
