@@ -14,6 +14,7 @@ export default function AlbumList(props) {
         <Link
           to={`/albums/${id}`}
           style={{ textDecoration: "none", color: "white" }}
+          onClick={() => window.location.href.reload()}
         >
           <Card.Img
             variant="top"

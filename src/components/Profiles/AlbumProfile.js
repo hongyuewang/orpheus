@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import SongList from "../List/SongList";
+import AlbumList from "../List/AlbumList";
 import { msToMinutes, msToHourMinutes } from "../../Helper";
 
 export default function AlbumProfile(props) {
   let { id } = useParams();
   let [albumData, setAlbumData] = useState([]);
+  let [recommendations, setRecommendations] = useState([]);
   let {
     name,
     artists,
@@ -46,6 +48,33 @@ export default function AlbumProfile(props) {
 
     getAlbum();
   }, []);
+
+  useEffect(() => {
+    const getRecommendations = async () => {
+      const { data } = await axios.get(
+        `https://api.spotify.com/v1/recommendations`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          params: {
+            seed_artists: artists?.[0]?.id,
+          },
+        }
+      );
+      let arr = data.tracks.map((track) => track.album);
+      arr = arr.filter(
+        (value, index, self) =>
+          index === self.findIndex((x) => x.id === value.id)
+      );
+      arr.splice(
+        arr.findIndex((x) => x?.id == id),
+        1
+      );
+      setRecommendations(arr);
+    };
+    getRecommendations();
+  }, [artists]);
 
   return (
     <Container>
@@ -89,6 +118,15 @@ export default function AlbumProfile(props) {
           albumName={name}
           currentUserData={JSON.parse(localStorage.getItem("currentUserData"))}
         />
+      </Row>
+
+      {recommendations.length > 0 && (
+        <Row>
+          <h3 className="fw-bold">You May Also Like</h3>
+        </Row>
+      )}
+      <Row>
+        <AlbumList albums={recommendations} />
       </Row>
     </Container>
   );
