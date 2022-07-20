@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -52,18 +52,20 @@ export default function SongList(props) {
       (() => {
         setSongSearch(search());
       })();
-    }, [search]);
+    }, [search()]);
 
     function addSongToFavorites(x) {
       let favorites = storageStringToArray(
         localStorage.getItem(props.currentUserData.id)
       );
-      favorites.push(x);
+
+      if (!favorites.some((y) => y?.id == x?.id)) {
+        favorites.push(x);
+      }
       localStorage.setItem(
         props.currentUserData.id,
         arrayToStorageString(favorites)
       );
-      console.log("fav:" + x);
     }
 
     function removeSongFromFavorites(x) {
