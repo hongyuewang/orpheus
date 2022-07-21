@@ -27,7 +27,7 @@ export default function UserProfile(props) {
           <img
             src={images?.[0]?.url || "no-photo.jpg"}
             className="img-fluid float-start rounded-circle img-thumbnail"
-            alt=""
+            alt="User profile picture"
           />
         </Col>
         <Col xs="4">

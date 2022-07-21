@@ -83,7 +83,7 @@ export default function AlbumProfile(props) {
           <img
             src={images?.[0]?.url || "no-photo.jpg"}
             className="img-fluid float-start"
-            alt=""
+            alt="Album cover"
           />
         </Col>
         <Col xs="4">

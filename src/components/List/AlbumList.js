@@ -20,6 +20,7 @@ export default function AlbumList(props) {
             variant="top"
             src={images[0]?.url || "no-photo.jpg"}
             style={{ objectFit: "cover" }}
+            alt={`Album cover for ${name}`}
           />
           <Card.Body>
             <Card.Text>

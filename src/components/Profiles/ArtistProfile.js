@@ -79,7 +79,7 @@ export default function ArtistProfile(props) {
           <img
             src={images?.[0]?.url || "no-photo.jpg"}
             className="img-fluid float-start rounded-circle img-thumbnail"
-            alt=""
+            alt="A photo of the artist"
           />
         </Col>
         <Col xs="4">

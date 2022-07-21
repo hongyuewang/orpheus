@@ -21,6 +21,7 @@ export default function ArtistList(props) {
             src={images[0]?.url || "no-photo.jpg"}
             className="rounded-circle"
             style={{ objectFit: "cover" }}
+            alt={`A picture of ${name}`}
           />
           <Card.Body>
             <Card.Text>
