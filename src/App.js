@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import Navbar from "./components/Navigation/Navigation";
+import Navigation from "./components/Navigation/Navigation";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Container, Row, Button } from "react-bootstrap";
 import axios from "axios";
@@ -97,7 +97,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar
+        <Navigation
           token={token}
           signout={signout}
           currentUserData={currentUserData}
@@ -174,6 +174,8 @@ const Home = (props) => {
             <button
               className="home-button btn btn-outline-blue"
               style={{ margin: "0 auto", display: "block" }}
+              role="button"
+              aria-label="Sign in button"
             >
               Sign In With Spotify
             </button>
@@ -182,6 +184,8 @@ const Home = (props) => {
           <button
             className="home-button btn btn-outline-blue"
             style={{ margin: "0 auto", display: "block" }}
+            role="button"
+            aria-label="View profile button"
           >
             <Link to="/profile" className="link">
               View Your Profile

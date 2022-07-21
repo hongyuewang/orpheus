@@ -7,7 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 function Navigation(props) {
   return (
-    <Navbar bg="dark-1" variant="dark-1" expand="lg">
+    <Navbar bg="dark-1" variant="dark-1" expand="lg" role="navigation" aria-label="Navigation bar">
       <Container>
         <Link to="/" className="navbar-brand">
           <span className="text-blue logo">Orpheus</span>

@@ -59,11 +59,18 @@ export default function Search(props) {
               }
             }}
             type="text"
+            role="searchbox"
+            aria-label="Search bar"
           />
         </form>
-        <div className="d-flex flex-row row mb-5" style={{ width: "60%" }}>
+        <div
+          className="d-flex flex-row row mb-5"
+          style={{ width: "60%" }}
+          aria-label="Search filters"
+        >
           <button
             type="button"
+            role="button"
             className={`btn col ms-5 me-5 col ${
               queryType == "artist,album,track" ? "btn-white" : "btn-dark-3"
             }`}
@@ -77,6 +84,7 @@ export default function Search(props) {
           </button>
           <button
             type="button"
+            role="button"
             className={`btn col ms-5 me-5 col ${
               queryType == "artist" ? "btn-white" : "btn-dark-3"
             }`}
@@ -90,6 +98,7 @@ export default function Search(props) {
           </button>
           <button
             type="button"
+            role="button"
             className={`btn col ms-5 me-5 col ${
               queryType == "album" ? "btn-white" : "btn-dark-3"
             }`}
@@ -103,6 +112,7 @@ export default function Search(props) {
           </button>
           <button
             type="button"
+            role="button"
             className={`btn col ms-5 me-5 col ${
               queryType == "track" ? "btn-white" : "btn-dark-3"
             }`}
