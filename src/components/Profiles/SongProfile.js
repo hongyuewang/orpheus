@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { msToMinutes } from "../../Helper";
 import SongList from "../List/SongList";
+import { Link } from "react-router-dom";
 
 export default function SongProfile(props) {
   let { id } = useParams();
@@ -80,14 +81,22 @@ export default function SongProfile(props) {
           <h1 className="fw-bold" style={{ fontFamily: "Montserrat" }}>
             {name}
           </h1>
-          <p className="lead ffs-6">{artists?.[0]?.name}</p>
+
+          <Link
+          to={`/artists/${artists?.[0].id}`}
+          style={{ textDecoration: "none", color: "white" }}
+        ><p className="lead ffs-6">{artists?.[0]?.name}</p></Link>
         </Col>
       </Row>
       <Container className="mt-5">
         <Row className="mb-5">
           <Col>
             <p className="fw-bold">Album</p>
-            <p>{album?.name}</p>
+            
+        <Link
+          to={`/albums/${album?.id}`}
+          style={{ textDecoration: "none", color: "white" }}
+        ><p>{album?.name}</p></Link>
           </Col>
           <Col>
             <p className="fw-bold">Track Number</p>

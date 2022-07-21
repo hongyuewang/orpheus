@@ -5,6 +5,7 @@ import axios from "axios";
 import SongList from "../List/SongList";
 import AlbumList from "../List/AlbumList";
 import { msToMinutes, msToHourMinutes } from "../../Helper";
+import { Link } from "react-router-dom";
 
 export default function AlbumProfile(props) {
   let { id } = useParams();
@@ -90,7 +91,12 @@ export default function AlbumProfile(props) {
           <h1 className="fw-bold" style={{ fontFamily: "Montserrat" }}>
             {name}
           </h1>
-          <p className="lead ffs-6">{artists?.[0]?.name}</p>
+          <Link
+            to={`/artists/${artists?.[0].id}`}
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <p className="lead ffs-6">{artists?.[0]?.name}</p>
+          </Link>
         </Col>
       </Row>
       <Container className="mt-5">
