@@ -10,14 +10,11 @@ export default function UserProfile(props) {
   let { id, display_name, images, followers, type, href } =
     props.currentUserData;
 
-  console.log(props);
-
   const [favorites, setFavorites] = useState(
     storageStringToArray(localStorage.getItem(id))
   );
 
   useEffect(() => {
-    console.log("hi");
     (() => {
       setFavorites(storageStringToArray(localStorage.getItem(id)));
     })();

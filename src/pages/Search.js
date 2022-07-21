@@ -26,7 +26,7 @@ export default function Search(props) {
         type: queryType,
       },
     });
-    console.log(data);
+
     if (queryType.includes("artist")) {
       setArtists(data?.artists?.items);
     }

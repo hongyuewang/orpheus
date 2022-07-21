@@ -18,7 +18,6 @@ export default function Discover(props) {
           },
         }
       );
-      console.log(data.albums.items);
       setNewReleases(data.albums.items);
     };
 

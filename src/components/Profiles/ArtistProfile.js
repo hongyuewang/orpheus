@@ -20,7 +20,6 @@ export default function ArtistProfile(props) {
           },
         }
       );
-      console.log(data);
       setArtistData(data);
     };
 
@@ -33,7 +32,6 @@ export default function ArtistProfile(props) {
           },
         }
       );
-      console.log(data);
       setRecommendations(data.artists);
     };
 

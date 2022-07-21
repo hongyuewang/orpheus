@@ -42,7 +42,6 @@ export default function AlbumProfile(props) {
           },
         }
       );
-      console.log(data);
       setAlbumData(data);
     };
 

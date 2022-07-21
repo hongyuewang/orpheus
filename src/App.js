@@ -34,12 +34,19 @@ function App() {
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
         .split("=")[1];
-      expiresIn = Number(hash.substring(1).split("&").find((elem) => elem.startsWith("expires_in")).split("=")[1]);
+      expiresIn = Number(
+        hash
+          .substring(1)
+          .split("&")
+          .find((elem) => elem.startsWith("expires_in"))
+          .split("=")[1]
+      );
 
       window.location.hash = "";
       window.location.href = window.location.href.split("#")[0];
       window.localStorage.setItem("token", token);
       window.localStorage.setItem("expiresIn", expiresIn);
+      window.localStorage.setItem("timerStart", Date.now());
     }
 
     setToken(token);
@@ -59,11 +66,14 @@ function App() {
 
   useEffect(() => {
     if (token && expiresIn) {
-      const interval = setInterval(() => {
-        signout();
-      }, expiresIn * 1000);
-
-      return () => clearInterval(interval);
+      setInterval(() => {
+        if (
+          Date.now() >=
+          Number(localStorage.getItem("timerStart")) + expiresIn * 1000
+        ) {
+          signout();
+        }
+      }, 1000);
     } else {
       return;
     }
@@ -115,7 +125,10 @@ function App() {
             <UserProfile token={token} currentUserData={currentUserData} />
           }
         />
-        <Route path="/search" element={<Search token={token} currentUserData={currentUserData} />} />
+        <Route
+          path="/search"
+          element={<Search token={token} currentUserData={currentUserData} />}
+        />
 
         <Route
           path="/artists/:id"
