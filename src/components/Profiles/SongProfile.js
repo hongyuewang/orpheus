@@ -22,15 +22,13 @@ export default function SongProfile(props) {
     href,
   } = songData;
 
-  console.log(props)
-
   useEffect(() => {
     const getSong = async () => {
       const { data } = await axios.get(
         `https://api.spotify.com/v1/tracks/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${props.token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
