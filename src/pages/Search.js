@@ -10,8 +10,12 @@ export default function Search(props) {
   const [artists, setArtists] = useState([]);
   const [albums, setAlbums] = useState([]);
   const [songs, setSongs] = useState([]);
+  let [queryType, setQueryType] = useState("artist,album,track");
 
   const searchAll = async (e) => {
+    setArtists([]);
+    setAlbums([]);
+    setSongs([]);
     e.preventDefault();
     const { data } = await axios.get("https://api.spotify.com/v1/search", {
       headers: {
@@ -19,13 +23,20 @@ export default function Search(props) {
       },
       params: {
         q: searchKey,
-        type: "artist,album,track",
+        type: queryType,
       },
     });
     console.log(data);
-    setArtists(data.artists.items);
-    setAlbums(data.albums.items);
-    setSongs(data.tracks.items);
+    if (queryType.includes("artist")) {
+      setArtists(data?.artists?.items);
+    }
+
+    if (queryType.includes("album")) {
+      setAlbums(data?.albums?.items);
+    }
+    if (queryType.includes("track")) {
+      setSongs(data?.tracks?.items);
+    }
   };
 
   return (
@@ -50,6 +61,60 @@ export default function Search(props) {
             type="text"
           />
         </form>
+        <div className="d-flex flex-row row mb-5" style={{ width: "60%" }}>
+          <button
+            type="button"
+            className={`btn col ms-5 me-5 col ${
+              queryType == "artist,album,track" ? "btn-white" : "btn-dark-3"
+            }`}
+            onClick={(e) => {
+              setQueryType("artist,album,track");
+              queryType = "artist,album,track";
+              searchAll(e);
+            }}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className={`btn col ms-5 me-5 col ${
+              queryType == "artist" ? "btn-white" : "btn-dark-3"
+            }`}
+            onClick={(e) => {
+              setQueryType("artist");
+              queryType = "artist";
+              searchAll(e);
+            }}
+          >
+            Artists
+          </button>
+          <button
+            type="button"
+            className={`btn col ms-5 me-5 col ${
+              queryType == "album" ? "btn-white" : "btn-dark-3"
+            }`}
+            onClick={(e) => {
+              setQueryType("album");
+              queryType = "album";
+              searchAll(e);
+            }}
+          >
+            Albums
+          </button>
+          <button
+            type="button"
+            className={`btn col ms-5 me-5 col ${
+              queryType == "track" ? "btn-white" : "btn-dark-3"
+            }`}
+            onClick={(e) => {
+              setQueryType("track");
+              queryType = "track";
+              searchAll(e);
+            }}
+          >
+            Songs
+          </button>
+        </div>
       </Row>
       {songs.length > 0 && (
         <Row>

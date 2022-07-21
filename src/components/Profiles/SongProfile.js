@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { msToMinutes } from "../../Helper";
 import SongList from "../List/SongList";
@@ -32,7 +32,6 @@ export default function SongProfile(props) {
           },
         }
       );
-      //console.log(data);
       setSongData(data);
     };
 
@@ -77,7 +76,7 @@ export default function SongProfile(props) {
           />
         </Col>
         <Col xs="4">
-            <h5 className="fs-6">SONG</h5>
+          <h5 className="fs-6">SONG</h5>
           <h1 className="fw-bold" style={{ fontFamily: "Montserrat" }}>
             {name}
           </h1>
@@ -85,22 +84,40 @@ export default function SongProfile(props) {
         </Col>
       </Row>
       <Container className="mt-5">
-        <Row>
-            <Col><p className="fw-bold">Album</p><p>{album?.name}</p></Col>
-            <Col><p className="fw-bold">Track Number</p><p>{track_number}</p></Col>
-            <Col><p className="fw-bold">Length</p><p>{msToMinutes(duration_ms)}</p></Col>
-            <Col><p className="fw-bold">Release Date</p><p>{album?.release_date}</p></Col>
-            <Col><p className="fw-bold">Popularity</p><p>{popularity}%</p></Col>
+        <Row className="mb-5">
+          <Col>
+            <p className="fw-bold">Album</p>
+            <p>{album?.name}</p>
+          </Col>
+          <Col>
+            <p className="fw-bold">Track Number</p>
+            <p>{track_number}</p>
+          </Col>
+          <Col>
+            <p className="fw-bold">Length</p>
+            <p>{msToMinutes(duration_ms)}</p>
+          </Col>
+          <Col>
+            <p className="fw-bold">Release Date</p>
+            <p>{album?.release_date}</p>
+          </Col>
+          <Col>
+            <p className="fw-bold">Popularity</p>
+            <p>{popularity}%</p>
+          </Col>
         </Row>
       </Container>
-      
+
       {recommendations?.length > 0 && (
         <Row>
           <h3 className="fw-bold">You May Also Like</h3>
         </Row>
       )}
       <Row>
-        <SongList songs={recommendations} currentUserData={localStorage.getItem("currentUserData")}/>
+        <SongList
+          songs={recommendations}
+          currentUserData={localStorage.getItem("currentUserData")}
+        />
       </Row>
     </Container>
   );
