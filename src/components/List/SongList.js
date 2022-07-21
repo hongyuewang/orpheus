@@ -39,7 +39,7 @@ export default function SongList(props) {
     let search = () => {
       return storageStringToArray(
         localStorage.getItem(props.currentUserData.id)
-      ).length > 0
+      )?.length > 0
         ? storageStringToArray(
             localStorage.getItem(props.currentUserData.id)
           )?.find((x) => x?.id == id)
