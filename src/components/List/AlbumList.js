@@ -37,7 +37,7 @@ export default function AlbumList(props) {
               </p>
 
               <Link
-                to={`/artists/${artists[0].id}`}
+                to={`/artists/${artists?.[0]?.id}`}
                 style={{ textDecoration: "none", color: "#B3B3B3" }}
               >
                 <p
@@ -48,7 +48,7 @@ export default function AlbumList(props) {
                     textOverflow: "ellipsis",
                   }}
                 >
-                  {artists[0].name}
+                  {artists?.[0]?.name}
                 </p>
               </Link>
             </Card.Text>

@@ -10,6 +10,7 @@ export default function ArtistProfile(props) {
   let { id } = useParams();
   let [artistData, setArtistData] = useState([]);
   let [topTracks, setTopTracks] = useState([]);
+  let [albums, setAlbums] = useState([]);
   let [recommendations, setRecommendations] = useState([]);
   let { name, genres, images, popularity, followers, type, href } = artistData;
 
@@ -41,6 +42,19 @@ export default function ArtistProfile(props) {
       setTopTracks(data.tracks);
     };
     getTopTracks();
+
+    const getAlbums = async () => {
+      const { data } = await axios.get(
+        `https://api.spotify.com/v1/artists/${id}/albums`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        }
+      );
+      setAlbums(data.items);
+    };
+    getAlbums();
 
     const getRecommendations = async () => {
       const { data } = await axios.get(
@@ -103,6 +117,15 @@ export default function ArtistProfile(props) {
       )}
         <Row> 
           <SongList songs={topTracks} currentUserData={JSON.parse(localStorage.getItem("currentUserData"))}></SongList>
+      </Row>
+
+      {albums.length > 0 && (
+        <Row>
+          <h3 className="fw-bold">Albums</h3>
+        </Row>
+      )}
+      <Row>
+        <AlbumList albums={albums} />
       </Row>
 
         {recommendations.length > 0 && (
