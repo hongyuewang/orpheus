@@ -3,10 +3,13 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import ArtistList from "../List/ArtistList";
+import SongList from "../List/SongList";
+import AlbumList from "../List/AlbumList";
 
 export default function ArtistProfile(props) {
   let { id } = useParams();
   let [artistData, setArtistData] = useState([]);
+  let [topTracks, setTopTracks] = useState([]);
   let [recommendations, setRecommendations] = useState([]);
   let { name, genres, images, popularity, followers, type, href } = artistData;
 
@@ -16,19 +19,35 @@ export default function ArtistProfile(props) {
         `https://api.spotify.com/v1/artists/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${props.token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
       setArtistData(data);
     };
 
+    const getTopTracks = async () => {
+      const { data } = await axios.get(
+        `https://api.spotify.com/v1/artists/${id}/top-tracks`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          params: {
+            market: "US",
+          }
+        }
+      );
+      setTopTracks(data.tracks);
+    };
+    getTopTracks();
+
     const getRecommendations = async () => {
       const { data } = await axios.get(
         `https://api.spotify.com/v1/artists/${id}/related-artists`,
         {
           headers: {
-            Authorization: `Bearer ${props.token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -75,6 +94,16 @@ export default function ArtistProfile(props) {
             <p>{popularity}%</p>
           </Col>
         </Row>
+      </Container>
+      
+      {topTracks.length > 0 && (
+        <Row>
+          <h3 className="fw-bold">Top Tracks</h3>
+        </Row>
+      )}
+        <Row> 
+          <SongList songs={topTracks} currentUserData={JSON.parse(localStorage.getItem("currentUserData"))}></SongList>
+      </Row>
 
         {recommendations.length > 0 && (
         <Row>
@@ -84,8 +113,6 @@ export default function ArtistProfile(props) {
         <Row> 
         <ArtistList artists={recommendations}></ArtistList>
       </Row>
-
-      </Container>
     </Container>
   );
 }
