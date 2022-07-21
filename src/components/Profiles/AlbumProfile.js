@@ -77,7 +77,7 @@ export default function AlbumProfile(props) {
   }, [artists]);
 
   return (
-    <Container>
+    <Container role="main">
       <Row className="mt-3">
         <Col xs="3">
           <img

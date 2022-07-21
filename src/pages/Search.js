@@ -40,7 +40,7 @@ export default function Search(props) {
   };
 
   return (
-    <Container>
+    <Container role="main">
       <Row>
         <h1 className="text-center mt-3 fw-bold">Search</h1>
         <form

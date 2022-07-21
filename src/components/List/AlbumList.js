@@ -10,6 +10,7 @@ export default function AlbumList(props) {
       <Card
         style={{ width: "10rem", height: "15rem" }}
         className="bg-dark-3 pt-2 ps-2 pe-2 mt-4 mb-4 ms-4 me-4"
+        role="listitem"
       >
         <Link
           to={`/albums/${id}`}
@@ -60,7 +61,7 @@ export default function AlbumList(props) {
   });
 
   return (
-    <Container>
+    <Container role="list" aria-label="Album list">
       <Row className="align-items-center justify-content-center">{display}</Row>
     </Container>
   );

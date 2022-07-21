@@ -155,7 +155,7 @@ function App() {
 
 const Home = (props) => {
   return (
-    <Container>
+    <Container role="main">
       <Row className="container home-title d-flex align-items-center justify-content-center">
         <Row>
           <h1 className="text-blue logo mt-5 mb-2">Orpheus</h1>

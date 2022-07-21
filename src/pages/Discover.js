@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import Card from "react-bootstrap/Card";
 import { Container, Row } from "react-bootstrap";
 import AlbumList from "../components/List/AlbumList";
 
@@ -25,7 +23,7 @@ export default function Discover(props) {
   });
 
   return (
-    <Container>
+    <Container role="main">
       <Row>
         <h1 className="text-center mt-3 fw-bold">Discover</h1>
       </Row>

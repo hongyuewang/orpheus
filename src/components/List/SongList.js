@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -85,7 +85,10 @@ export default function SongList(props) {
     }
 
     return (
-      <div className="d-inline-block row justify-content-between gap-3 mb-5">
+      <div
+        className="d-inline-block row justify-content-between gap-3 mb-5"
+        role="listitem"
+      >
         <div
           className="me-5"
           style={{ display: "inline-block", width: "40px" }}
@@ -210,7 +213,7 @@ export default function SongList(props) {
     );
   });
   return (
-    <Container>
+    <Container role="list" aria-label="Song list">
       {props.songs?.length > 0 && (
         <div className="d-inline-block row justify-content-between gap-3 mb-3">
           <div

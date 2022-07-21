@@ -67,7 +67,7 @@ export default function SongProfile(props) {
   }, [id]);
 
   return (
-    <Container>
+    <Container role="main">
       <Row className="mt-3">
         <Col xs="3">
           <img
@@ -83,20 +83,24 @@ export default function SongProfile(props) {
           </h1>
 
           <Link
-          to={`/artists/${artists?.[0].id}`}
-          style={{ textDecoration: "none", color: "white" }}
-        ><p className="lead ffs-6">{artists?.[0]?.name}</p></Link>
+            to={`/artists/${artists?.[0].id}`}
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <p className="lead ffs-6">{artists?.[0]?.name}</p>
+          </Link>
         </Col>
       </Row>
       <Container className="mt-5">
         <Row className="mb-5">
           <Col>
             <p className="fw-bold">Album</p>
-            
-        <Link
-          to={`/albums/${album?.id}`}
-          style={{ textDecoration: "none", color: "white" }}
-        ><p>{album?.name}</p></Link>
+
+            <Link
+              to={`/albums/${album?.id}`}
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <p>{album?.name}</p>
+            </Link>
           </Col>
           <Col>
             <p className="fw-bold">Track Number</p>

@@ -21,7 +21,7 @@ export default function UserProfile(props) {
   }, [id, clickCount]);
 
   return (
-    <Container>
+    <Container role="main">
       <Row className="mt-3">
         <Col xs="3">
           <img
