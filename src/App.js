@@ -14,8 +14,8 @@ import SongProfile from "./components/Profiles/SongProfile";
 
 function App() {
   const CLIENT_ID = "2b8587e1136c463bbacecc73035758af";
-  const REDIRECT_URI = "http://localhost:3000";
-  //const REDIRECT_URI = "https://orpheus-music.web.app/";
+  //const REDIRECT_URI = "http://localhost:3000";
+  const REDIRECT_URI = "https://orpheus-music.web.app/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
